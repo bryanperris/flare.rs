@@ -1,2 +1,2 @@
 # flare.rs
-Rust based port of the classic Descent 3 engine
+A work-in-progress Rust based port of the classic Descent 3 engine
