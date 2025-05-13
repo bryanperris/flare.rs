@@ -1,0 +1,49 @@
+[package]
+name = "euc"
+version = "0.6.0"
+description = "A software rendering crate that lets you write shaders with Rust"
+authors = [
+	"Joshua Barretto <joshua.s.barretto@gmail.com>",
+	"Martin Sandfuchs <martin@cluginbuehl.ch>",
+]
+license = "Apache-2.0 AND MIT"
+repository = "https://github.com/zesterer/euc"
+readme = "README.md"
+edition = "2021"
+keywords = ["renderer", "3D", "graphics", "rasterizer", "shader"]
+exclude = ["/misc", "/misc/*"]
+
+[dependencies]
+image = { version = "0.25", optional = true }
+fxhash = { version = "0.2", optional = true }
+micromath = { version = "2", optional = true }
+clipline = "0.2"
+
+[features]
+default = ["image", "par"]
+image = ["dep:image"]
+par = ["fxhash"]
+micromath = ["dep:micromath"]
+
+[dev-dependencies]
+vek = { version = "0.17", default-features = false, features = ["rgba"] }
+minifb = "0.27"
+wavefront = "0.2"
+criterion = "0.5"
+image = "0.25"
+derive_more = "0.99"
+
+[lib]
+bench = false
+
+[[bench]]
+name = "teapot"
+harness = false
+
+[profile.dev]
+# Optimize by default so we don't need to remember to always pass in --release
+opt-level = 3
+overflow-checks = false
+
+[profile.release]
+debug = true

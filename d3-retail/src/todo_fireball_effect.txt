@@ -1,0 +1,131 @@
+
+
+Specific hack with explosion lighting
+int VisEffectInitType(vis_effect *vis) {
+  int ret = 1;
+
+  vis->size = Fireballs[vis->id].size;
+  vis->flags |= VF_USES_LIFELEFT;
+  vis->lifeleft = Fireballs[vis->id].total_life;
+  vis->lifetime = vis->lifeleft;
+
+  if (Fireballs[vis->id].type == FT_EXPLOSION && vis->id != CUSTOM_EXPLOSION_INDEX && vis->id != NAPALM_BALL_INDEX)
+    vis->lighting_color = OPAQUE_FLAG | GR_RGB16(255, 180, 20);
+
+  return ret;
+}
+
+
+
+
+#define MED_EXPLOSION_INDEX2 0
+#define SMALL_EXPLOSION_INDEX2 1
+#define MED_EXPLOSION_INDEX 2
+#define MED_EXPLOSION_INDEX3 3
+#define BIG_EXPLOSION_INDEX 4
+#define BILLOWING_INDEX 5
+#define SMALL_EXPLOSION_INDEX 6
+#define MED_SMOKE_INDEX 7
+#define BLACK_SMOKE_INDEX 8
+#define BLAST_RING_INDEX 9
+#define SMOKE_TRAIL_INDEX 10
+#define CUSTOM_EXPLOSION_INDEX 11
+#define SHRINKING_BLAST_INDEX 12
+#define SMOLDERING_INDEX 13
+#define SHRINKING_BLAST_INDEX2 14
+#define HOT_SPARK_INDEX 15
+#define COOL_SPARK_INDEX 16
+#define GRADIENT_BALL_INDEX 17
+#define SPRAY_INDEX 18
+#define FADING_LINE_INDEX 19
+#define MUZZLE_FLASH_INDEX 20
+#define SHIP_HIT_INDEX 21
+#define BLUE_BLAST_RING_INDEX 22
+#define PARTICLE_INDEX 23
+#define AFTERBURNER_INDEX 24
+#define NAPALM_BALL_INDEX 25
+#define LIGHTNING_ORIGIN_INDEXA 26
+#define LIGHTNING_ORIGIN_INDEXB 27
+#define RAINDROP_INDEX 28
+#define PUDDLEDROP_INDEX 29
+#define GRAVITY_FIELD_INDEX 30
+#define LIGHTNING_BOLT_INDEX 31
+#define INVUL_HIT_INDEX 32
+#define SINE_WAVE_INDEX 33
+#define AXIS_BILLBOARD_INDEX 34
+#define DEFAULT_CORONA_INDEX 35
+#define HEADLIGHT_CORONA_INDEX 36
+#define STAR_CORONA_INDEX 37
+#define SUN_CORONA_INDEX 38
+#define SNOWFLAKE_INDEX 39
+#define THICK_LIGHTNING_INDEX 40
+#define BLUE_FIRE_INDEX 41
+#define RUBBLE1_INDEX 42
+#define RUBBLE2_INDEX 43
+#define WATER_SPLASH_INDEX 44
+#define SHATTER_INDEX 45
+#define SHATTER_INDEX2 46
+#define BILLBOARD_SMOKETRAIL_INDEX 47
+#define MASSDRIVER_EFFECT_INDEX 48
+#define BLUE_EXPLOSION_INDEX 49
+#define GRAY_SPARK_INDEX 50
+#define GRAY_LIGHTNING_BOLT_INDEX 51
+#define MERCBOSS_MASSDRIVER_EFFECT_INDEX 52
+
+
+
+
+#define EXTRA_EXPLOSION_THRESHOLD 15
+fireball Fireballs[NUM_FIREBALLS] = {
+    {"ExplosionAA.oaf", FT_EXPLOSION, SMALL_TEXTURE, .9f, 3.0},        //	MED_EXPLOSION2
+    {"ExplosionBB.oaf", FT_EXPLOSION, SMALL_TEXTURE, .9f, 2.0},        //	SMALL_EXPLOSION2
+    {"explosionCC.oaf", FT_EXPLOSION, SMALL_TEXTURE, .9f, 3.0f},       // MED_EXPLOSION
+    {"explosionDD.oaf", FT_EXPLOSION, SMALL_TEXTURE, .9f, 3.0f},       // MED_EXPLOSION3
+    {"ExplosionE.oaf", FT_EXPLOSION, SMALL_TEXTURE, .9f, 3.0},         // BIG_EXPLOSION
+    {"ExplosionFF.oaf", FT_EXPLOSION, SMALL_TEXTURE, 1.0f, 1.0f},      // BILLOWING
+    {"explosionG.oaf", FT_EXPLOSION, SMALL_TEXTURE, 1.0f, 2.0f},       // SMALL_EXPLOSION_INDEX
+    {"smokepuff.oaf", FT_SMOKE, SMALL_TEXTURE, .7f, .7f},              // MED_SMOKE_INDEX
+    {"black_smoke.oaf", FT_SMOKE, SMALL_TEXTURE, .7f, 1.0f},           // BLACK_SMOKE
+    {"BlastRingOrange.ogf", FT_EFFECT, SMALL_TEXTURE, 1.0, 1.0},       // RED_BLAST_RING
+    {"smokepuff.oaf", FT_SMOKE, SMALL_TEXTURE, .4f, .7f},              // SMOKE_TRAIL
+    {"smokepuff.oaf", FT_EXPLOSION, SMALL_TEXTURE, .7f, 3.0},          // CUSTOM_EXPLOSION
+    {"explosionblast2.ogf", FT_EXPLOSION, NORMAL_TEXTURE, .7f, .7f},   // SHRINKING_BLAST
+    {"black_smoke.oaf", FT_SMOKE, SMALL_TEXTURE, .7f, 1.0f},           // SMOLDERING
+    {"warp.oaf", FT_EFFECT, NORMAL_TEXTURE, 1.0, 1.0},                 // SHRINKING_BLAST2
+    {"Hotspark.ogf", FT_SPARK, SMALL_TEXTURE, 1.0, 1.0},               // HOT_SPARK
+    {"Coolspark.ogf", FT_SPARK, SMALL_TEXTURE, 1.0, 1.0},              // COOL_SPARK
+    {"thrustball.ogf", FT_EFFECT, SMALL_TEXTURE, 1.0, 1.0},            // GRADIENT_BALL
+    {"NOIMAGE", FT_EFFECT, SMALL_TEXTURE, .7f, 3.0},                   // SPRAY
+    {"NOIMAGE", FT_EFFECT, SMALL_TEXTURE, .7f, 3.0},                   // FADING_LINE
+    {"muzzleflash.ogf", FT_EFFECT, SMALL_TEXTURE, .7f, 3.0},           // MUZZLE_FLASH
+    {"shiphit.ogf", FT_EFFECT, NORMAL_TEXTURE, .7f, 3.0},              // SHIP HIT EFFECT
+    {"BlastRingBlue.ogf", FT_EFFECT, SMALL_TEXTURE, .7f, 3.0},         // BLUE SHIELD RING
+    {"NOIMAGE", FT_EFFECT, SMALL_TEXTURE, .7f, 3.0},                   // PARTICLE
+    {"explosion.oaf", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},            // AFTERBURNER
+    {"NOIMAGE", FT_EXPLOSION, SMALL_TEXTURE, 1.0f, 2.0f},              // NAPALM BALL
+    {"LightningOriginA.ogf", FT_EXPLOSION, SMALL_TEXTURE, 1.0f, 2.0f}, // LIGHTNING ORIGINA
+    {"LightningOriginB.ogf", FT_EXPLOSION, SMALL_TEXTURE, 1.0f, 2.0f}, // LIGHTNING ORIGINB
+    {"Raindrop.ogf", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},             // Windshield drop
+    {"Puddle.ogf", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},               //	Puddle drop
+    {"NOIMAGE", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},                  // Gravity effect
+    {"NOIMAGE", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},                  // LIGHTNING_BOLT_INDEX
+    {"InvulnerabilityHit.ogf", FT_EFFECT, NORMAL_TEXTURE, 1.0f, 2.0f}, // Invul shield hit effect
+    {"NOIMAGE", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},                  // SINE_WAVE_INDEX
+    {"NOIMAGE", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},                  // AXIS_BILLBOARD_INDEX
+    {"StarFlare6.ogf", FT_EFFECT, NORMAL_TEXTURE, 1.0f, 2.0f},         // DEFAULT_CORONA
+    {"HeadlightFlare.ogf", FT_EFFECT, NORMAL_TEXTURE, 1.0f, 2.0f},     // HEADLIGHT_CORONA
+    {"StarFlare.ogf", FT_EFFECT, NORMAL_TEXTURE, 1.0f, 2.0f},          // STAR_CORONA
+    {"SunFlare.ogf", FT_EFFECT, NORMAL_TEXTURE, 1.0f, 2.0f},           // SUN_CORONA
+    {"Whiteball.ogf", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},            // SNOWFLAKE_INDEX
+    {"NOIMAGE", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},                  // THICK_LIGHTNING_INDEX
+    {"NapalmFire.oaf", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},           // BLUE_FIRE_INDEX
+    {"Rocklette1.ogf", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},           // RUBBLE1_INDEX
+    {"Rocklette2.ogf", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},           // RUBBLE2_INDEX
+    {"Whiteball.ogf", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},            // WATER_SPLASH_INDEX
+    {"lg.oaf", FT_EFFECT, SMALL_TEXTURE, 1.0f, 2.0f},                  // SHATTER_INDEX
+    {"lg.oaf", FT_EFFECT, SMALL_TEXTURE, 1.0f, 2.0f},                  // SHATTER_INDEX2
+    {"NOIMAGE", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},                  // BILLBOARD_SMOKETRAIL_INDEX
+    {"NOIMAGE", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f},                  // MASSDRIVER_EFFECT_INDEX
+    {"ExplosionBlkShrk.oaf", FT_EXPLOSION, SMALL_TEXTURE, .9f, 3.0},   // BLUE_EXPLOSION_INDEX
+    {"Coolspark.ogf", FT_SPARK, SMALL_TEXTURE, 1.0, 1.0},              // GRAY_SPARK_INDEX
+    {"NOIMAGE", FT_EFFECT, TINY_TEXTURE, 1.0f, 2.0f}};                 // GRAY_LIGHTNING_BOLT_INDEX

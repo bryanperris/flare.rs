@@ -1,0 +1,16 @@
+[package]
+name = "d3-playbox"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+egui = "0.31.1"
+euc = { path = "../externals/euc" }
+minifb = "0.28.0"
+vek = "0.17.1"
+d3-core = { path = "../d3-core" }
+eframe = "0.31.1"
+env_logger = "0.11.7"
+egui_extras = "0.31.1"
+once_cell = "1.21.3"
+bytemuck = "1.22.0"

@@ -1,0 +1,3 @@
+* Finish things for grfont (may be all done since it has crap for 2dlib stuff)
+* Get hog and cfile things implemented
+* we can skip over 2dlib stuff completely

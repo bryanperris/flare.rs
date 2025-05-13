@@ -1,0 +1,10 @@
+dosdevices/
+drive_c/Program Files/Common Files/System
+drive_c/Program Files
+drive_c/Program Files (x86)
+drive_c/users
+drive_c/windows
+.update-timestamp
+system.reg
+user.reg
+userdef.reg
